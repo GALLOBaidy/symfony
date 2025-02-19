@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ProductController!{% endblock %}
+
+{% block body %}
+<table>
+    <thead>
+        <tr>
+            <th>Nom</th>
+            <th>Prix</th>
+            <th>Promotion</th>
+            <th>Remise</th>
+            <th>Catégorie</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for product in products %}
+            <tr>
+                <td>{{ product.name }} </td>
+                <td>{{ product.price }} </td>
+                <td>{{ product.promotion }} </td>
+                <td>{{ product.discount }} </td>
+                <td>{{ product.category.name }} </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
