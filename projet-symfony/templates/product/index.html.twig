@@ -1,33 +1,39 @@
-{% extends 'base.html.twig' %} {% block title %}Liste des produits {% endblock %} 
- 
-{% block javascripts %}
+{% extends 'base.html.twig' %} {% block title %}Liste des produits {% endblock
+%} {% block javascripts %}
 <script type="text/javascript">
-		const toastLiveExample = document.getElementById('liveToast')
-		const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
-		toastBootstrap.show()
+  const toastLiveExample = document.getElementById("liveToast");
+  const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample);
+  toastBootstrap.show();
 </script>
-{% endblock %}
- 
- 
-{% block body %}
- 
-{% for message in app.flashes('notice') %}
- 
-	<div class="toast-container position-fixed bottom-0 end-0 p-3">
-<div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-<div class="toast-header">
-<strong class="me-auto">Notification</strong>
-<button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+{% endblock %} {% block body %} {% for message in app.flashes('notice') %}
+
+<div class="toast-container position-fixed bottom-2 end-0 p-3">
+  <div
+    id="liveToast"
+    class="toast"
+    role="alert"
+    aria-live="assertive"
+    aria-atomic="true"
+  >
+    <div class="toast-header">
+      <strong class="me-auto">Notification</strong>
+      <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="toast"
+        aria-label="Close"
+      ></button>
+    </div>
+    <div class="toast-body">
+      {{ message }}
+    </div>
+  </div>
 </div>
-<div class="toast-body">
-		  {{ message }}
-</div>
-</div>
-</div>
-{% endfor %}
+{% endfor %} {% if is_granted('ROLE_ADMIN') %}
 <a href="{{ path('app_products_add') }}" class="btn btn-success"
   >Ajouter un produit</a
 >
+{% endif %}
 <table class="table table-striped">
   <thead>
     <tr>
@@ -48,6 +54,7 @@
       <td>{{ product.discount }}</td>
       <td>{{ product.category.name }}</td>
       <td>
+        {% if is_granted('ROLE_ADMIN') %}
         <a
           href="{{ path('app_products_update', { id: product.id }) }}"
           class="btn btn-warning"
@@ -58,6 +65,7 @@
           class="btn btn-danger"
           >Supprimer</a
         >
+        {% endif %}
       </td>
     </tr>
     {% endfor %}
